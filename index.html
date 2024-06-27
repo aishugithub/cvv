@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinmaya Vidyalaya Sr. Sec. School</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .main-content header img {
+            max-width: 150px;
+            height: auto;
+        }
+        .main-content h1 {
+            font-size: 2.5em;
+            margin: 10px 0;
+        }
+        .main-content h2 {
+            font-size: 1.5em;
+            margin: 5px 0;
+        }
+        .main-content p {
+            font-size: 1.2em;
+            color: #333;
+            max-width: 600px;
+            margin: 10px 0;
+        }
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 485px;
+            height: 402px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 1em;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="#mouse-game">Click the mouse, earn a point - Game for class 1 - mouse operation</a>
+    </div>
+    <div class="main-content">
+        <header>
+            <img src="school-logo.png" alt="School Logo">
+            <h1>Chinmaya Vidyalaya Sr. Sec. School</h1>
+            <h2>Virugambakkam</h2>
+        </header>
+        <p>
+            Hari Om! This page offers many useful tools and activities for kids. Explore and enjoy the resources we have curated for you.
+        </p>
+        <div class="iframe-container" id="mouse-game">
+            <iframe src="https://scratch.mit.edu/projects/21505555/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+        <footer>
+            Created by Aishwarya
+        </footer>
+    </div>
+</body>
+</html>
