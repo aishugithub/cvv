@@ -46,6 +46,7 @@
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
             font-size: 0.9em;
+            cursor: pointer;
         }
 
         .sidebar a:hover {
@@ -148,10 +149,29 @@
             from { transform: translateX(100%); }
             to { transform: translateX(0); }
         }
+
+        .no-game-message {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px;
+        }
     </style>
     <script>
         function changeIframeSource(source, activityName) {
-            document.getElementById('content-iframe').src = source;
+            const iframe = document.getElementById('content-iframe');
+            const container = document.getElementById('game-container');
+            const noGameMessage = document.getElementById('no-game-message');
+            
+            if (source === 'message') {
+                container.style.display = 'none';
+                noGameMessage.style.display = 'block';
+            } else {
+                container.style.display = 'block';
+                noGameMessage.style.display = 'none';
+                iframe.src = source;
+            }
             showAchievement(`Starting: ${activityName}`);
         }
 
@@ -168,22 +188,22 @@
 <body>
     <div class="sidebar">
         <div class="category-header">🖱️ Mouse Skills</div>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/21505555/embed', 'Click and Earn')">Click and Earn Points</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/142319839/embed', 'Mouse Paint')">Mouse Paint Adventure</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/312206807/embed', 'Catch the Ball')">Catch the Ball</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/21505555/embed', 'Mouse Click Game')">Mouse Click Adventure</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/10128067/embed', 'Cat Chase')">Cat Chase Mouse</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/11882242/embed', 'Drawing Game')">Simple Drawing Game</a>
 
         <div class="category-header">⌨️ Keyboard Practice</div>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/148835787/embed', 'Maze Explorer')">Keyboard Maze Explorer</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/234302085/embed', 'Letter Chase')">Letter Chase</a>
-        <a onclick="changeIframeSource('https://www.typing.com/student/game/type-a-balloon', 'Typing Balloons')">Typing Balloons</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/148835787/embed', 'Maze Game')">Keyboard Maze</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/177753849/embed', 'Letter Game')">Letter Learning Game</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/392063498/embed', 'Typing Game')">Basic Typing Game</a>
 
         <div class="category-header">🎨 Paint Tools Quiz</div>
-        <a onclick="changeIframeSource('https://wordwall.net/embed/0da4019a81704e02be5b2a3b1cbc311c?themeId=1', 'Tux Paint Quiz')">Tux Paint Tools</a>
-        <a onclick="changeIframeSource('https://wordwall.net/embed/44902524a42e4722807edcfe3bd3cdd3?themeId=1', 'MS Paint Quiz')">MS Paint Basics</a>
+        <a onclick="changeIframeSource('https://wordwall.net/embed/0da4019a81704e02be5b2a3b1cbc311c?themeId=1&templateId=2', 'Tux Paint Quiz')">Tux Paint Quiz</a>
+        <a onclick="changeIframeSource('https://wordwall.net/embed/44902524a42e4722807edcfe3bd3cdd3?themeId=1&templateId=5', 'MS Paint Quiz')">MS Paint Quiz</a>
 
-        <div class="category-header">⚡ Speed Typing</div>
-        <a onclick="changeIframeSource('https://www.typing.com/student/game/keyboard-jump', 'Keyboard Jump')">Keyboard Jump</a>
-        <a onclick="changeIframeSource('https://www.typing.com/student/game/typing-attack', 'Typing Attack')">Typing Attack</a>
+        <div class="category-header">⚡ Computer Practice</div>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/555320798/embed', 'Computer Parts')">Learn Computer Parts</a>
+        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/435668595/embed', 'Quiz Game')">Computer Quiz</a>
     </div>
 
     <div class="main-content">
@@ -199,8 +219,13 @@
                Choose any activity from the menu on the left and start your adventure!</p>
         </div>
 
-        <div class="iframe-container">
-            <iframe id="content-iframe" src="https://scratch.mit.edu/projects/21505555/embed" allowtransparency="true" allowfullscreen></iframe>
+        <div class="iframe-container" id="game-container">
+            <iframe id="content-iframe" src="https://scratch.mit.edu/projects/21505555/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        </div>
+
+        <div id="no-game-message" class="no-game-message" style="display: none;">
+            <h3>🎮 Game Loading...</h3>
+            <p>Please wait while we prepare your learning activity!</p>
         </div>
 
         <footer>
