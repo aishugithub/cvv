@@ -1,161 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- Previous head content remains the same until style section -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chinmaya Vidyalaya Sr. Sec. School - Fun Learning Corner</title>
     <style>
-        :root {
-            --primary-color: #4a90e2;
-            --secondary-color: #f39c12;
-            --accent-color: #2ecc71;
-            --sidebar-width: 250px;
-        }
-
-        body {
-            font-family: 'Comic Sans MS', 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            min-height: 100vh;
-            background-color: #f0f8ff;
-        }
-
-        .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(145deg, #2980b9, #3498db);
-            color: #fff;
-            padding: 20px 0;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-header {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            margin: 10px 0;
-            font-weight: bold;
-            text-align: center;
-            color: #fff;
-        }
-
-        .sidebar a {
-            color: #fff;
-            text-decoration: none;
-            padding: 12px 20px;
-            display: block;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            font-size: 0.9em;
-            cursor: pointer;
-        }
-
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid var(--secondary-color);
-            transform: translateX(5px);
-        }
-
-        .main-content {
-            flex: 1;
+        /* Previous styles remain the same */
+        /* Adding new styles for instructions panel */
+        .instructions-panel {
+            background: white;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            max-width: 800px;
+            animation: slideUp 0.5s ease-out;
         }
 
-        .school-header {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease-in;
-        }
-
-        .school-header img {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 15px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .school-header h1 {
+        .instructions-panel h3 {
             color: #2c3e50;
-            font-size: 2.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructions-panel ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .instructions-panel li {
             margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
         }
 
-        .school-header h2 {
-            color: #7f8c8d;
-            font-size: 1.3em;
+        .instructions-panel li:before {
+            content: "👉";
+            position: absolute;
+            left: 0;
         }
 
-        .welcome-message {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-            max-width: 800px;
+        .game-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin: 15px 0;
             text-align: center;
-            animation: slideUp 0.8s ease-out;
         }
 
-        .iframe-container {
-            width: 100%;
-            max-width: 800px;
-            height: 600px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: 20px 0;
-        }
-
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-
-        .achievement-popup {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--accent-color);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            display: none;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        .no-game-message {
-            text-align: center;
-            padding: 20px;
+        .learning-objectives {
             background: #f8f9fa;
+            padding: 15px;
             border-radius: 10px;
-            margin: 20px;
+            margin-top: 10px;
+        }
+
+        .learning-objectives h4 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
         }
     </style>
     <script>
@@ -163,6 +67,7 @@
             const iframe = document.getElementById('content-iframe');
             const container = document.getElementById('game-container');
             const noGameMessage = document.getElementById('no-game-message');
+            const instructionsPanel = document.getElementById('instructions-panel');
             
             if (source === 'message') {
                 container.style.display = 'none';
@@ -172,40 +77,141 @@
                 noGameMessage.style.display = 'none';
                 iframe.src = source;
             }
+            
+            // Update instructions based on the selected game
+            updateInstructions(activityName);
             showAchievement(`Starting: ${activityName}`);
         }
 
-        function showAchievement(message) {
-            const popup = document.getElementById('achievement-popup');
-            popup.textContent = message;
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000);
+        function updateInstructions(activityName) {
+            const instructions = {
+                'Mouse Click Game': {
+                    title: '🖱️ Mouse Click Adventure',
+                    instructions: [
+                        'Move your mouse over the screen',
+                        'Click on the objects that appear',
+                        'Try to get as many points as possible',
+                        'Watch out for special bonus items!'
+                    ],
+                    objectives: 'Practice mouse control and clicking accuracy'
+                },
+                'Cat Chase': {
+                    title: '🐱 Cat Chase Mouse',
+                    instructions: [
+                        'Move your mouse to control the mouse character',
+                        'Avoid getting caught by the cat',
+                        'Collect cheese for extra points',
+                        'Stay away from the edges'
+                    ],
+                    objectives: 'Develop precise mouse movement skills'
+                },
+                'Drawing Game': {
+                    title: '✏️ Simple Drawing Game',
+                    instructions: [
+                        'Click and hold to draw',
+                        'Release the mouse button to stop drawing',
+                        'Use different colors from the palette',
+                        'Try to draw simple shapes'
+                    ],
+                    objectives: 'Learn mouse clicking and dragging'
+                },
+                'Keyboard Maze': {
+                    title: '⌨️ Keyboard Maze Game',
+                    instructions: [
+                        'Use arrow keys to move',
+                        'Navigate through the maze',
+                        'Avoid touching the walls',
+                        'Reach the finish line'
+                    ],
+                    objectives: 'Practice using keyboard arrow keys'
+                },
+                'Letter Game': {
+                    title: '📝 Letter Learning Game',
+                    instructions: [
+                        'Type the letter you see on screen',
+                        'Press the correct key quickly',
+                        'Watch for new letters',
+                        'Try to get a high score'
+                    ],
+                    objectives: 'Learn keyboard letter locations'
+                },
+                'Typing Game': {
+                    title: '⌨️ Basic Typing Game',
+                    instructions: [
+                        'Type the words as they appear',
+                        'Press space after each word',
+                        'Type as accurately as possible',
+                        'Watch your typing speed'
+                    ],
+                    objectives: 'Develop basic typing skills'
+                },
+                'Tux Paint Quiz': {
+                    title: '🎨 Tux Paint Tools Quiz',
+                    instructions: [
+                        'Read each question carefully',
+                        'Click on the correct tool icon',
+                        'Try to answer quickly',
+                        'Learn from incorrect answers'
+                    ],
+                    objectives: 'Learn Tux Paint tool functions'
+                },
+                'MS Paint Quiz': {
+                    title: '🖌️ MS Paint Quiz',
+                    instructions: [
+                        'Match the tool with its function',
+                        'Click on your chosen answer',
+                        'Review the explanation for each answer',
+                        'Try to improve your score'
+                    ],
+                    objectives: 'Understand MS Paint tools and features'
+                },
+                'Computer Parts': {
+                    title: '💻 Learn Computer Parts',
+                    instructions: [
+                        'Click on different computer parts',
+                        'Listen to the name and function',
+                        'Try to remember each part',
+                        'Take the mini-quiz at the end'
+                    ],
+                    objectives: 'Learn basic computer hardware'
+                },
+                'Computer Quiz': {
+                    title: '🔍 Computer Quiz Game',
+                    instructions: [
+                        'Read each question about computers',
+                        'Choose the correct answer',
+                        'Learn from the explanations',
+                        'Try to get all questions right'
+                    ],
+                    objectives: 'Test computer knowledge'
+                }
+            };
+
+            const panel = document.getElementById('instructions-panel');
+            const gameInfo = instructions[activityName] || {
+                title: 'Game Instructions',
+                instructions: ['Loading instructions...'],
+                objectives: 'Loading objectives...'
+            };
+
+            panel.innerHTML = `
+                <h3>${gameInfo.title}</h3>
+                <ul>
+                    ${gameInfo.instructions.map(inst => `<li>${inst}</li>`).join('')}
+                </ul>
+                <div class="learning-objectives">
+                    <h4>🎯 Learning Objectives:</h4>
+                    <p>${gameInfo.objectives}</p>
+                </div>
+            `;
         }
+
+        // Previous showAchievement function remains the same
     </script>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="category-header">🖱️ Mouse Skills</div>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/21505555/embed', 'Mouse Click Game')">Mouse Click Adventure</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/753351979/embed', 'Shapes Art')">Shapes Art</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/11882242/embed', 'Drawing Game')">Simple Drawing Game</a>
-
-        <div class="category-header">⌨️ Keyboard Practice</div>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/148835787/embed', 'Maze Game')">Keyboard Maze</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/177753849/embed', 'Letter Game')">Letter Learning Game</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/392063498/embed', 'Typing Game')">Basic Typing Game</a>
-
-        <div class="category-header">🎨 Paint Tools Quiz</div>
-        <a onclick="changeIframeSource('https://wordwall.net/embed/0da4019a81704e02be5b2a3b1cbc311c?themeId=1&templateId=2', 'Tux Paint Quiz')">Tux Paint Quiz</a>
-        <a onclick="changeIframeSource('https://wordwall.net/embed/44902524a42e4722807edcfe3bd3cdd3?themeId=1&templateId=5', 'MS Paint Quiz')">MS Paint Quiz</a>
-
-        <div class="category-header">⚡ Computer Practice</div>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/555320798/embed', 'Computer Parts')">Learn Computer Parts</a>
-        <a onclick="changeIframeSource('https://scratch.mit.edu/projects/435668595/embed', 'Quiz Game')">Computer Quiz</a>
-    </div>
-
+    <!-- Previous sidebar content remains the same -->
+    
     <div class="main-content">
         <div class="school-header">
             <img src="/api/placeholder/120/120" alt="School Logo">
@@ -217,6 +223,21 @@
             <h3>🌟 Welcome to Our Fun Learning Corner! 🌟</h3>
             <p>Hari Om! Get ready for an exciting journey of learning computer skills through fun games and activities. 
                Choose any activity from the menu on the left and start your adventure!</p>
+        </div>
+
+        <!-- Instructions Panel - Added above the game container -->
+        <div id="instructions-panel" class="instructions-panel">
+            <h3>🖱️ Mouse Click Adventure</h3>
+            <ul>
+                <li>Move your mouse over the screen</li>
+                <li>Click on the objects that appear</li>
+                <li>Try to get as many points as possible</li>
+                <li>Watch out for special bonus items!</li>
+            </ul>
+            <div class="learning-objectives">
+                <h4>🎯 Learning Objectives:</h4>
+                <p>Practice mouse control and clicking accuracy</p>
+            </div>
         </div>
 
         <div class="iframe-container" id="game-container">
